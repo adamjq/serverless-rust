@@ -12,41 +12,48 @@ jobs:
     name: CI Rust
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
+      - uses: actions/checkout@v2
       - name: Verify code formatting
         uses: hecrj/setup-rust-action@v1
         with:
           components: rustfmt
-
       - run: cargo fmt --all -- --check
-
       - name: Lint with Clippy
         uses: hecrj/setup-rust-action@v1
         with:
           components: clippy
-      
       - run: cargo clippy
-
       - name: Run Tests
         uses: actions-rs/cargo@v1
         with:
           command: test
-
       - name: Build
         uses: actions-rs/cargo@v1
         with:
           command: build
+
+  ci-cdk:
+    name: CI CDK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - run: make install-cdk-deps
+      - run: make lint-cdk
+      - run: make test-cdk
+      - name: Run Checkov action
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: cdk/cdk.out/
 
   build-rust:
     name: Build Rust
     runs-on: macos-latest
     needs: ci-rust
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - run: make install-runtime-target-macos-deps
+      - uses: actions/checkout@v2
       - run: make install-runtime-target
       - run: make build-release

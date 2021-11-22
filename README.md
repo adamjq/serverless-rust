@@ -1,4 +1,6 @@
-# serverless-rust
+# Serverless Rust
+
+![CI](https://github.com/adamjq/serverless-rust/actions/workflows/ci.yml/badge.svg)
 
 ## Requirements
 - Rust development environment
@@ -14,7 +16,7 @@ This project explores building an AWS Lambda function with the Rust custom runti
 For Mac OS, make sure you download and link the target and linker for the AWS Lambda Rust runtime:
 
 ```bash
-make install-runtime-target-macos-deps install-runtime-target
+make install-runtime-target
 ```
 
 ## Deployment

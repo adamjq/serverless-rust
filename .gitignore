@@ -12,3 +12,4 @@ Cargo.lock
 .cargo
 dist
 .envrc
+.DS_Store
