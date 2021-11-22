@@ -1,11 +1,11 @@
 import * as cdk from 'aws-cdk-lib';
-import { RustLambdaStack } from '../lib/lambda';
+import { RustApiStack } from '../lib/api';
 
-describe('RustLambdaStack', () => {
+describe('RustApiStack', () => {
     test('synthesizes correctly', () => {
         const app = new cdk.App();
 
-        new RustLambdaStack(app, 'RustLambdaStack', {
+        new RustApiStack(app, 'RustApiStack', {
             lambdaCodeDistPath: 'test/testdata/lambda.zip',
         });
     });
