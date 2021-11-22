@@ -4,4 +4,6 @@ import * as cdk from 'aws-cdk-lib';
 import { RustLambdaStack } from '../lib/lambda';
 
 const app = new cdk.App();
-new RustLambdaStack(app, 'RustLambdaStack', {});
+new RustLambdaStack(app, 'RustLambdaStack', {
+    lambdaCodeDistPath: '../dist/lambda.zip',
+});

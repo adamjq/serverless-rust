@@ -1,7 +1,5 @@
-install-runtime-target-macos-deps:
-	brew install filosottile/musl-cross/musl-cross
-
 install-runtime-target:
+	brew install filosottile/musl-cross/musl-cross
 	rustup target add x86_64-unknown-linux-musl
 	mkdir -p .cargo
 	echo '[target.x86_64-unknown-linux-musl]\nlinker = "x86_64-linux-musl-gcc"' > .cargo/config
@@ -20,10 +18,13 @@ package-binary:
 ########## AWS CDK ##########
 
 install-cdk-deps:
-	cd cdk && npm install
+	cd cdk && npm ci
 
 lint-cdk:
 	cd cdk && npm run lint && npm run prettier
+
+test-cdk:
+	cd cdk && npm test
 
 format-cdk:
 	cd cdk && npm run lint:fix && npm run prettier:fix

@@ -14,7 +14,7 @@ This project explores building an AWS Lambda function with the Rust custom runti
 For Mac OS, make sure you download and link the target and linker for the AWS Lambda Rust runtime:
 
 ```bash
-make install-runtime-target-macos-deps install-runtime-target
+make install-runtime-target
 ```
 
 ## Deployment
