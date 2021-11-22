@@ -2,7 +2,7 @@ install-runtime-target:
 	brew install filosottile/musl-cross/musl-cross
 	rustup target add x86_64-unknown-linux-musl
 	mkdir -p .cargo
-	echo '[target.x86_64-unknown-linux-musl]\nlinker = "x86_64-linux-musl-gcc"' > .cargo/config
+	echo '[target.x86_64-unknown-linux-musl]\nlinker = "x86_64-linux-musl-gcc"\n[net]\ngit-fetch-with-cli = true' > .cargo/config
 	cat .cargo/config
 
 build-dev:
@@ -32,8 +32,11 @@ format-cdk:
 bootstrap-env:
 	cd cdk && npm run cdk bootstrap
 
-deploy: build-release package-binary
+deploy:
 	cd cdk && npm run cdk synth && npm run cdk deploy
+
+# build and package the binary from a local machine and deploy with CDK
+deploy-local: build-release package-binary deploy
 
 teardown:
 	cd cdk && npm run cdk destroy

@@ -1,6 +1,8 @@
+use aws_lambda_events::encodings::Body;
+use aws_lambda_events::event::apigw::{ApiGatewayProxyRequest, ApiGatewayProxyResponse};
+use http::header::HeaderMap;
 use lambda_runtime::{handler_fn, Context, Error};
 use log::LevelFilter;
-use serde_json::{json, Value};
 use simple_logger::SimpleLogger;
 
 #[tokio::main]
@@ -15,11 +17,19 @@ async fn main() -> Result<(), Error> {
     Ok(())
 }
 
-async fn handler(event: Value, _: Context) -> Result<Value, Error> {
-    let message = event["message"].as_str().unwrap_or("world");
+async fn handler(
+    event: ApiGatewayProxyRequest,
+    _ctx: Context,
+) -> Result<ApiGatewayProxyResponse, Error> {
+    let path = event.path.unwrap();
 
-    let response = format!("Hello, {}!", message,);
-    log::info!("{}", response);
+    let resp = ApiGatewayProxyResponse {
+        status_code: 200,
+        headers: HeaderMap::new(),
+        multi_value_headers: HeaderMap::new(),
+        body: Some(Body::Text(format!("Hello from '{}'", path))),
+        is_base64_encoded: Some(false),
+    };
 
-    Ok(json!({ "response": response }))
+    Ok(resp)
 }
