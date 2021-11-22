@@ -14,7 +14,7 @@ This project explores building an AWS Lambda function with the Rust custom runti
 For Mac OS, make sure you download and link the target and linker for the AWS Lambda Rust runtime:
 
 ```bash
-make install-runtime-target
+make install-runtime-target-macos-deps install-runtime-target
 ```
 
 ## Deployment
@@ -25,15 +25,18 @@ First, set an `AWS_PROFILE` environment variable in a `.envrc` file following th
 direnv allow .
 ```
 
-Make sure your AWS account is bootstrapped for CDK applications
+Install NPM dependencies for CDK infrastructure:
 ```bash
 make install-cdk-deps
+```
 
+Make sure your AWS account is bootstrapped for CDK applications
+```bash
 make bootstrap-env
 ```
 
+Deploy CDK stacks to AWS:
 ```
-# synth and deploy resources
 make deploy
 ```
 

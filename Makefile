@@ -1,9 +1,11 @@
+install-runtime-target-macos-deps:
+	brew install filosottile/musl-cross/musl-cross
+
 install-runtime-target:
 	rustup target add x86_64-unknown-linux-musl
-	brew install filosottile/musl-cross/musl-cross
 	mkdir -p .cargo
-	echo '[target.x86_64-unknown-linux-musl]\n\
-	linker = "x86_64-linux-musl-gcc"' > .cargo/config
+	echo '[target.x86_64-unknown-linux-musl]\nlinker = "x86_64-linux-musl-gcc"' > .cargo/config
+	cat .cargo/config
 
 build-dev:
 	cargo build
