@@ -4,7 +4,7 @@ import { RustApiStack } from '../lib/api';
 describe('RustApiStack', () => {
     test('synthesizes correctly', () => {
         const app = new cdk.App({
-            outdir: "./cdk.out",
+            outdir: './cdk.out',
         });
 
         new RustApiStack(app, 'RustApiStack', {
