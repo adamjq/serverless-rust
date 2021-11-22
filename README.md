@@ -1,4 +1,6 @@
-# serverless-rust
+# Serverless Rust
+
+![CI](https://github.com/adamjq/serverless-rust/actions/workflows/ci.yml/badge.svg)
 
 ## Requirements
 - Rust development environment
