@@ -35,8 +35,20 @@ bootstrap-env:
 deploy:
 	cd cdk && npm run cdk synth && npm run cdk deploy
 
-# build and package the binary from a local machine and deploy with CDK
-deploy-local: build-release package-binary deploy
-
 teardown:
 	cd cdk && npm run cdk destroy
+
+########## LOCALSTACK ##########
+
+bootstrap-localstack:
+	cd cdk && cdklocal bootstrap
+
+deploy-localstack: build-release package-binary
+	cd cdk && cdklocal deploy --require-approval never
+
+get_local_api_id = $(shell awslocal apigateway get-rest-apis | jq ".items[] | .id"| tr -d '"')
+
+call-local-api:
+	$(eval APIGW=https://$(get_local_api_id).execute-api.localhost.localstack.cloud:4566/prod/)
+	@echo Calling Localstack API Gateway $(APIGW)
+	curl $(APIGW)testpath
