@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  localstack:
+    image: localstack/localstack:latest
+    environment: 
+      - SERVICES=serverless,ssm,sqs,sns
+      - EDGE_PORT=4566
+      - HOSTNAME=localstack
+      - HOSTNAME_EXTERNAL=localhost
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - AWS_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+      - DISABLE_CORS_CHECKS=1
+    ports:
+      - "4566-4584:4566-4584"
+    volumes: 
+      - "${TEMPDIR:-/tmp/localstack}:/tmp/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
