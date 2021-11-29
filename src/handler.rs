@@ -1,8 +1,10 @@
-use crate::Error;
+#![allow(unused_imports)]
+
 use aws_lambda_events::encodings::Body;
 use aws_lambda_events::event::apigw::{ApiGatewayProxyRequest, ApiGatewayProxyResponse};
 use http::header::HeaderMap;
 use lambda_runtime::{Context, Error as LambdaError};
+use std::io::Error as IOError;
 
 pub async fn handler(
     event: ApiGatewayProxyRequest,
@@ -27,13 +29,13 @@ mod tests {
     use std::fs;
 
     // helper function for loading JSON test fixtures
-    fn load_json_from_file(file_path: String) -> Result<ApiGatewayProxyRequest, Error> {
+    fn load_json_from_file(file_path: String) -> Result<ApiGatewayProxyRequest, IOError> {
         let data = fs::read_to_string(file_path).expect("Unable to read file");
         let apigw_event: ApiGatewayProxyRequest = serde_json::from_str(&data)?;
         Ok(apigw_event)
     }
 
-    fn lambda_mock_context() -> Result<Context, Error> {
+    fn lambda_mock_context() -> Result<Context, IOError> {
         let data = fs::read_to_string("tests/fixtures/ExampleLambdaContext.json")
             .expect("Unable to read file");
         let lambda_mock_context: Context = serde_json::from_str(&data)?;

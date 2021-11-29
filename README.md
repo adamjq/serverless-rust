@@ -53,7 +53,7 @@ Docker environment. To use Localstack run:
 ```bash
 docker-compose up
 
-# one-time boostrap
+# one-time bootstrap
 make bootstrap-localstack
 
 # deploy resources in Docker
