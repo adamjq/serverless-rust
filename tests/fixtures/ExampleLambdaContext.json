@@ -1,0 +1,14 @@
+{
+  "request_id": "1234",
+  "deadline": 1553114310423,
+  "invoked_function_arn": "arn:aws:lambda:us-west-2:123456789012:function:my-function",
+  "xray_trace_id": "23be1858-fab9-4f6a-9c0b-dd578fc4a673",
+  "env_config": {
+    "endpoint": "test-endpoint",
+    "function_name": "my-function",
+    "memory": 256,
+    "version": "1",
+    "log_stream": "test-logs",
+    "log_group": "test-logs"
+  }
+}
